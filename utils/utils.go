@@ -18,7 +18,7 @@ type Input struct {
 func Usage() {
 	fmt.Println(`
 Welcome
-There are 4 option for Bookstore
+There are 5 option for Bookstore
 For listing all the records you can use go run main.go --mode=list
 For searching object go run main.go --mode=search --entry=words
 For deleting object go run main.go --mode=delete --entry=id
