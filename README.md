@@ -30,8 +30,8 @@ go run main.go --mode=getbyid --entry=id
 ```
 This command show book informations with the given id.
 
- - **sell command**
+ - **buy command**
 ```
-go run main.go --mode=sell --entry=id --quantity=quantity
+go run main.go --mode=buy --entry=id --quantity=quantity
 ```
-This command sells the given quantity for the book which id is given. Command also compare quantity and book stock.
+This command buy the given quantity for the book which id is given. Command also compare quantity and book stock.
