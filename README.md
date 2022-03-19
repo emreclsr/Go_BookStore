@@ -1,3 +1,5 @@
+Medium yazısı: https://medium.com/@emrecalisir95/golang-goroutine-channel-concurrency-acb9a5326f24
+
 ## Go Book Store
 
 This program provides functions for events that may occur in a book store.
