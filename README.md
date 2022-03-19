@@ -1,4 +1,4 @@
-Medium yazısı: https://medium.com/@emrecalisir95/golang-goroutine-channel-concurrency-acb9a5326f24
+Hw2 Medium yazısı: https://medium.com/@emrecalisir95/golang-goroutine-channel-concurrency-acb9a5326f24
 
 ## Go Book Store
 
