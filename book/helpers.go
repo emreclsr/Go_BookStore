@@ -34,6 +34,5 @@ Book Price: %v
 Book StockCode: %v
 Book ISBN: %v
 Author ID: %v
-Author Name: %v
-Deleted: %v`, book.ID, book.Name, book.PageNumber, book.Stock, book.Price, book.StockCode, book.ISBN, book.Author.ID, book.Author.Name, book.Deleted)
+Deleted: %v`, book.ID, book.Name, book.PageNumber, book.Stock, book.Price, book.StockCode, book.ISBN, book.AuthorID, book.Deleted)
 }

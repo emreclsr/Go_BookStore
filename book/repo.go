@@ -1,55 +1,76 @@
 package book
 
 import (
-	"errors"
+	"fmt"
+	"gorm.io/gorm"
 )
 
 type repository struct {
-	Books []Book //Db connection will be added here
+	db *gorm.DB
 }
 
-func NewRepository(books []Book) *repository {
-	return &repository{Books: books}
+func NewRepository(db *gorm.DB) *repository {
+	return &repository{db: db}
 }
 
-func (repo repository) Create(book Book) error {
-	repo.Books = append(repo.Books, book)
-	return nil
+func (repo repository) Migration() error {
+	return repo.db.AutoMigrate(&Book{}, &Author{})
 }
 
-func (repo repository) GetAll() []Book {
-	var list []Book
-	for _, i := range repo.Books {
-		if i.Deleted == false {
-			list = append(list, i)
-		}
+func (repo repository) Get(id int) (*Book, error) {
+	book := &Book{ID: id}
+	err := repo.db.First(book).Error
+	if err != nil {
+		return &Book{}, err
 	}
-	return list
+	return book, nil
 }
 
-func (repo repository) Get(id int) (Book, error) {
-
-	newbook, index := SearchByID(id, repo.Books)
-	if index != -1 {
-		return newbook, nil
+func (repo repository) GetAll() ([]Book, error) {
+	var books []Book
+	err := repo.db.Find(&books).Error
+	if err != nil {
+		return nil, err
 	}
-	return Book{}, errors.New("there is no book with given id")
+	return books, nil
+}
+
+func (repo repository) Create(book Book) (int, error) {
+	err := repo.db.Create(&book).Error
+	if err != nil {
+		return 0, err
+	}
+	return int(book.ID), nil
 }
 
 func (repo repository) Update(id int, newbook Book) error {
-	_, index := SearchByID(id, repo.Books)
-	if index == -1 {
-		return errors.New("error update")
+	book := &Book{ID: id}
+	err := repo.db.First(&book).Error
+	if err != nil {
+		return err
 	}
-	repo.Books[index] = newbook
+	book.ID = newbook.ID
+	book.Name = newbook.Name
+	book.Author = newbook.Author
+	book.ISBN = newbook.ISBN
+	book.Deleted = newbook.Deleted
+	book.PageNumber = newbook.PageNumber
+	book.Price = newbook.Price
+	book.Stock = newbook.Stock
+	book.StockCode = newbook.StockCode
+
+	err = repo.db.Save(&book).Error
+	if err != nil {
+		fmt.Println(err)
+	}
 	return nil
 }
 
 func (repo repository) Delete(id int) error {
-	_, index := SearchByID(id, repo.Books)
-	if index != -1 {
-		repo.Books[index].Deleted = true
-		return nil
+	book := &Book{ID: id}
+	err := repo.db.Delete(&book).Error
+	if err != nil {
+		return err
 	}
-	return errors.New("there is no element with given id")
+	return nil
 }
