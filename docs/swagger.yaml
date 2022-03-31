@@ -1,0 +1,186 @@
+basePath: /api
+consumes:
+- application/json
+definitions:
+  author.response:
+    properties:
+      data: {}
+      error:
+        type: string
+    type: object
+  book.response:
+    properties:
+      data: {}
+      error:
+        type: string
+    type: object
+host: localhost:6363
+info:
+  contact:
+    name: Emre ÇALIŞIR
+  description: This is a sample an exercise written in Go.
+  title: Book API
+  version: "1.0"
+paths:
+  /authors/{id}:
+    get:
+      description: Get author by ID
+      parameters:
+      - description: Author ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/author.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/author.response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/author.response'
+      summary: Get author
+      tags:
+      - author
+  /books:
+    get:
+      description: Get all books
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/book.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/book.response'
+      summary: Get all books
+      tags:
+      - book
+  /books/{id}:
+    delete:
+      description: Delete book by ID
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/book.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/book.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/book.response'
+      summary: Delete book
+      tags:
+      - book
+    get:
+      description: Get book by ID
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/book.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/book.response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/book.response'
+      summary: Get book
+      tags:
+      - book
+  /books/{id}/sell/{quantity}:
+    put:
+      description: Sell book by ID and quantity
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Quantity
+        in: path
+        name: quantity
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/book.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/book.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/book.response'
+      summary: Sell book
+      tags:
+      - book
+  /books/search/{word}:
+    get:
+      description: Search book by given words
+      parameters:
+      - description: Search word
+        in: path
+        name: word
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/book.response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/book.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/book.response'
+      summary: Search book
+      tags:
+      - book
+produces:
+- application/json
+schemes:
+- http
+- https
+swagger: "2.0"

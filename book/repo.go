@@ -9,12 +9,19 @@ type repository struct {
 	db *gorm.DB
 }
 
-func NewRepository(db *gorm.DB) *repository {
-	return &repository{db: db}
+type BookRepository interface {
+	Get(id int) (*Book, error)
+	GetAll() ([]Book, error)
+	Create(author Book) (int, error)
+	Update(id int, book Book) error
+	Delete(id int) error
 }
 
-func (repo repository) Migration() error {
-	return repo.db.AutoMigrate(&Book{}, &Author{})
+// Compile time proof of interface implementation
+var _ BookRepository = repository{}
+
+func NewBookRepository(db *gorm.DB) *repository {
+	return &repository{db: db}
 }
 
 func (repo repository) Get(id int) (*Book, error) {
@@ -51,7 +58,6 @@ func (repo repository) Update(id int, newbook Book) error {
 	}
 	book.ID = newbook.ID
 	book.Name = newbook.Name
-	book.Author = newbook.Author
 	book.ISBN = newbook.ISBN
 	book.Deleted = newbook.Deleted
 	book.PageNumber = newbook.PageNumber
