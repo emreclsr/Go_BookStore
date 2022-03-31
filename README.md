@@ -1,8 +1,6 @@
 ## Go Book Store
 
 This program provides functions for events that may occur in a book store.
-Functions can be running with flags via CLI.
-If the mode flag is empty or wrong, the program return usage.
 
 *This program is an example of an exercise written in Go language.*
 
